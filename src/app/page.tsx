@@ -5,7 +5,6 @@ import {Button} from '@/components/ui/button';
 import {Textarea} from '@/components/ui/textarea';
 import {Send} from 'lucide-react';
 import {respondToUserQuery} from '@/ai/flows/respond-to-user-query';
-import {Avatar, AvatarFallback} from '@/components/ui/avatar';
 
 const AIChat = () => {
   const [messages, setMessages] = useState<
@@ -75,38 +74,21 @@ const AIChat = () => {
               message.sender === 'user' ? 'justify-end' : 'justify-start'
             }`}
           >
-            <div className="flex items-center space-x-2">
-              {message.sender === 'ai' && (
-                <Avatar className="w-8 h-8">
-                  <AvatarFallback>AI</AvatarFallback>
-                </Avatar>
-              )}
-              <div
-                className={`rounded-xl px-4 py-2 max-w-2xl ${
-                  message.sender === 'user'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-muted-foreground'
-                }`}
-              >
-                {message.text}
-              </div>
-              {message.sender === 'user' && (
-                <Avatar className="w-8 h-8">
-                  <AvatarFallback>User</AvatarFallback>
-                </Avatar>
-              )}
+            <div
+              className={`rounded-xl px-4 py-2 max-w-2xl ${
+                message.sender === 'user'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted text-muted-foreground'
+              }`}
+            >
+              {message.text}
             </div>
           </div>
         ))}
         {isTyping && (
           <div className="flex w-full justify-start">
-            <div className="flex items-center space-x-2">
-              <Avatar className="w-8 h-8">
-                <AvatarFallback>AI</AvatarFallback>
-              </Avatar>
-              <div className="rounded-xl px-4 py-2 max-w-2xl bg-muted text-muted-foreground">
-                <TypingIndicator />
-              </div>
+            <div className="rounded-xl px-4 py-2 max-w-2xl bg-muted text-muted-foreground">
+              <TypingIndicator />
             </div>
           </div>
         )}

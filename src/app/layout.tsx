@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'AI Echo',
+  title: 'Zephyr',
   description: 'AI Chatbot Application',
 };
 
@@ -31,3 +31,4 @@ export default function RootLayout({
     </html>
   );
 }
+

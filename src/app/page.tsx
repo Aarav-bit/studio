@@ -50,7 +50,7 @@ const AIChat = () => {
   return (
     <div className="flex flex-col h-screen bg-background">
       <header className="bg-secondary p-4 text-secondary-foreground shadow-md">
-        <h1 className="text-lg font-semibold">AI Echo Chat</h1>
+        <h1 className="text-lg font-semibold">Zephyr Chat</h1>
       </header>
 
       <div
@@ -101,3 +101,4 @@ const AIChat = () => {
 };
 
 export default AIChat;
+

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, {useState, useRef, useEffect} from 'react';
@@ -15,6 +14,7 @@ const AIChat = () => {
   >([]);
   const [input, setInput] = useState('');
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     // Scroll to bottom on message change
@@ -31,6 +31,8 @@ const AIChat = () => {
     setMessages(prevMessages => [...prevMessages, userMessage]);
     setInput('');
 
+    setIsTyping(true); // Start typing indicator
+
     try {
       const aiResponse = await respondToUserQuery({message: input});
       const aiMessage = {sender: 'ai' as const, text: aiResponse.response};
@@ -44,8 +46,18 @@ const AIChat = () => {
           text: 'Sorry, I encountered an error processing your request.',
         },
       ]);
+    } finally {
+      setIsTyping(false); // Stop typing indicator
     }
   };
+
+  const TypingIndicator = () => (
+    <div className="typing-indicator">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  );
 
   return (
     <div className="flex flex-col h-screen bg-background">
@@ -75,6 +87,13 @@ const AIChat = () => {
             </div>
           </div>
         ))}
+        {isTyping && (
+          <div className="flex w-full justify-start">
+            <div className="rounded-xl px-4 py-2 max-w-2xl bg-muted text-muted-foreground">
+              <TypingIndicator />
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="p-4 bg-secondary border-t">
@@ -101,4 +120,3 @@ const AIChat = () => {
 };
 
 export default AIChat;
-

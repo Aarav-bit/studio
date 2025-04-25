@@ -1,12 +1,11 @@
 'use client';
 
 import React, {useState, useRef, useEffect} from 'react';
-import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {Button} from '@/components/ui/button';
-import {Input} from '@/components/ui/input';
 import {Textarea} from '@/components/ui/textarea';
 import {Send} from 'lucide-react';
 import {respondToUserQuery} from '@/ai/flows/respond-to-user-query';
+import {Avatar, AvatarFallback} from '@/components/ui/avatar';
 
 const AIChat = () => {
   const [messages, setMessages] = useState<
@@ -76,21 +75,38 @@ const AIChat = () => {
               message.sender === 'user' ? 'justify-end' : 'justify-start'
             }`}
           >
-            <div
-              className={`rounded-xl px-4 py-2 max-w-2xl ${
-                message.sender === 'user'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground'
-              }`}
-            >
-              {message.text}
+            <div className="flex items-center space-x-2">
+              {message.sender === 'ai' && (
+                <Avatar className="w-8 h-8">
+                  <AvatarFallback>AI</AvatarFallback>
+                </Avatar>
+              )}
+              <div
+                className={`rounded-xl px-4 py-2 max-w-2xl ${
+                  message.sender === 'user'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted text-muted-foreground'
+                }`}
+              >
+                {message.text}
+              </div>
+              {message.sender === 'user' && (
+                <Avatar className="w-8 h-8">
+                  <AvatarFallback>User</AvatarFallback>
+                </Avatar>
+              )}
             </div>
           </div>
         ))}
         {isTyping && (
           <div className="flex w-full justify-start">
-            <div className="rounded-xl px-4 py-2 max-w-2xl bg-muted text-muted-foreground">
-              <TypingIndicator />
+            <div className="flex items-center space-x-2">
+              <Avatar className="w-8 h-8">
+                <AvatarFallback>AI</AvatarFallback>
+              </Avatar>
+              <div className="rounded-xl px-4 py-2 max-w-2xl bg-muted text-muted-foreground">
+                <TypingIndicator />
+              </div>
             </div>
           </div>
         )}
@@ -102,7 +118,7 @@ const AIChat = () => {
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder="Type your message here..."
-            className="flex-1 rounded-md"
+            className="flex-1 rounded-md bg-background"
             onKeyDown={e => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -120,4 +136,3 @@ const AIChat = () => {
 };
 
 export default AIChat;
-

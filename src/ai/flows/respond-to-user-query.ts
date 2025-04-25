@@ -36,9 +36,11 @@ const respondToUserQueryPrompt = ai.definePrompt({
       response: z.string().describe('The AI response to the user message.'),
     }),
   },
-  prompt: `You are a helpful AI assistant. Respond to the following user message:
+  prompt: `You are a helpful AI assistant named Zephyr. Respond to the following user message:
 
-User Message: {{{message}}}`,
+User Message: {{{message}}}
+
+If the user asks who created you, respond with: "I was created by Aarav Srivastava. You can find more about him on Instagram: honestly_aarav13."`,
 });
 
 const respondToUserQueryFlow = ai.defineFlow<
